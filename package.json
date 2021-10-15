@@ -1,0 +1,29 @@
+{
+  "name": "call-forwarding-blog",
+  "version": "0.1.0",
+  "bin": {
+    "call-forwarding-blog": "bin/call-forwarding-blog.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.128.0",
+    "@types/node": "16.11.0",
+    "aws-cdk": "1.128.0",
+    "ts-node": "^10.3.0",
+    "typescript": "~4.4.4"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.128.0",
+    "@aws-cdk/aws-dynamodb": "^1.128.0",
+    "@aws-cdk/aws-iam": "^1.128.0",
+    "@aws-cdk/aws-lambda": "^1.128.0",
+    "@aws-cdk/aws-s3-deployment": "^1.128.0",
+    "@aws-cdk/core": "^1.128.0",
+    "@aws-cdk/custom-resources": "^1.128.0",
+    "source-map-support": "^0.5.20"
+  }
+}

@@ -1,0 +1,15 @@
+*.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+.DS_Store
+!/client/**
+
+cdk-outputs.json
+.drawio
+.vscode
+yarn.lock
