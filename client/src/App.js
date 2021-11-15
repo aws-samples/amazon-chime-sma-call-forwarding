@@ -221,7 +221,7 @@ const App = () => {
 									<div>
 										<form onSubmit={handleSubmitForward}>
 											<label>
-												Number to Foward To:
+												Number to Forward to:
 												<PhoneInput
 													placeholder="Enter phone number"
 													defaultCountry="US"

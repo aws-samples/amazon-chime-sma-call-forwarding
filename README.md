@@ -34,8 +34,9 @@ This demo will build and configure several services within AWS so that you can f
 ## Description
 This deployment will build everything required to forward calls and change numbers between different Amazon Chime Product Types.  Phone Numbers within Amazon Chime Phone Inventory can have a Product Type of `SipMediaApplicationDialIn` or `VoiceConnector`. The local client can update the Product Type of the phone numbers in the Phone Inventory and update a DynanamoDB table with call forwarding information. A Lambda function associated with the SIP Media Application is used to forward numbers using the [CallandBridge](https://docs.aws.amazon.com/chime/latest/dg/call-and-bridge.html) action.
 
+
 ## Resources Created
-- handlerLambda - A Python Lambda that updates the Product Type of numbers in the Amazon Chime Phone Inventory and a DynamoDB
+- handlerLambda - A Python Lambda that updates the Product Type of numbers in the Amazon Chime Phone Inventory and a DynamoDB. This is fronted by an API Gateway. 
 - smaLambda - A Python Lambda that is associated with a SIP Media Application used to forward calls using the CallandBridge action
 - calledNumber Table - A DynamoDB table used to track where numbers should be forwarded to.  Updated from the local client and queried by the smaLambda
 - outgoingWav Bucket - S3 bucket to store wav files for playing customized messages
@@ -47,6 +48,7 @@ This deployment will build everything required to forward calls and change numbe
 ## Additional Resources
 - utils\createWav.py - Python script to create wav files using Polly
 - wav_files\\* - wav files uploaded to outgoingWav bucket for use with SMA
+
 
 ## Operation
 
@@ -110,4 +112,5 @@ Using the local client, remove an existing call forward. This removes the phone 
 
 ## Cleanup
 To clean up this demo: `cdk destroy`.  Additionally, Chime SIP Media Applications, rules, voice connectors, and phone numbers should be manually removed in the Chime Console.
+
 
