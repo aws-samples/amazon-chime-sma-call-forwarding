@@ -5,16 +5,12 @@ if ! [ "$(printf '%s\n' "$REQNODE" "$NODEVER" | sort -V | head -n1)" = "$REQNODE
     echo 'node must be version 12+'
     exit 1
 fi
-if ! [ -x "$(command -v npm)" ]; then
-  echo 'Error: npm is not installed.' >&2
+if ! [ -x "$(command -v yarn)" ]; then
+  echo 'Error: yarn is not installed.' >&2
   exit 1
 fi
 if ! [ -x "$(command -v aws)" ]; then
   echo 'Error: aws is not installed.' >&2
-  exit 1
-fi
-if ! [ -x "$(command -v cdk)" ]; then
-  echo 'Error: cdk is not installed.' >&2
   exit 1
 fi
 if [ -f "cdk.context.json" ]; then
@@ -25,17 +21,16 @@ else
     echo ""
     echo "INFO: cdk.context.json not present, nothing to remove"
 fi
-if [ ! -f "yarn.lock" ]; then
-    echo ""
-    echo "Installing Packages"
-    echo ""
-    yarn
-fi
+yarn
 echo ""
 echo "Building CDK"
 echo ""
 yarn run build
 echo ""
+echo "Bootstrapping CDK"
+echo ""
+npx cdk bootstrap
+echo ""
 echo "Deploying CDK"
 echo ""
-cdk deploy -O client/src/cdk-outputs.json
+npx cdk deploy -O client/src/cdk-outputs.json
