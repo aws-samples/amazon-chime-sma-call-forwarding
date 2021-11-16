@@ -37,7 +37,7 @@ This deployment will build everything required to forward calls and change numbe
 
 ## Resources Created
 
-- handlerLambda - A Python Lambda that updates the Product Type of numbers in the Amazon Chime Phone Inventory and a DynamoDB
+- handlerLambda - A Python Lambda that updates the Product Type of numbers in the Amazon Chime Phone Inventory and a DynamoDB. This is fronted by an API Gateway.
 - smaLambda - A Python Lambda that is associated with a SIP Media Application used to forward calls using the CallandBridge action
 - calledNumber Table - A DynamoDB table used to track where numbers should be forwarded to. Updated from the local client and queried by the smaLambda
 - outgoingWav Bucket - S3 bucket to store wav files for playing customized messages
