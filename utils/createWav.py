@@ -10,14 +10,14 @@ def create_polly (polly_text, file_name):
     response = polly.synthesize_speech(
         OutputFormat='pcm',
         Text = polly_text,
-        SampleRate = '8000',
+        SampleRate = '16000',
         VoiceId = 'Joanna'
     )    
 
     if "AudioStream" in response:
         output_wav = '../wav_files/' + file_name + '.wav'
         with wave.open(output_wav, 'wb') as wav_file:
-            wav_file.setparams((1, 2, 8000, 0, 'NONE', 'NONE'))
+            wav_file.setparams((1, 2, 16000, 0, 'NONE', 'NONE'))
             wav_file.writeframes(response['AudioStream'].read())
 
     return output_wav
