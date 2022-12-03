@@ -9,7 +9,7 @@ def get_phone_number():
         # AreaCode='string',
         # City='string',
         # Country='string',
-        State="AZ",
+        State="IL",
         # TollFreePrefix='string',
         MaxResults=1,
     )

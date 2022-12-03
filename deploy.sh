@@ -33,4 +33,4 @@ npx cdk bootstrap
 echo ""
 echo "Deploying CDK"
 echo ""
-npx cdk deploy -O client/src/cdk-outputs.json
+npx cdk deploy -O client/src/cdk-outputs.json  --no-rollback
