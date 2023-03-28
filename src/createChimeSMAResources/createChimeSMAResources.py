@@ -91,7 +91,7 @@ def on_create(event):
 
     new_phone_number = get_phone_number()
     sma_ID = create_SMA(region, name, lambdaArn)
-    rule_name = str(new_phone_number)
+    rule_name = str(new_phone_number).replace("+", "")
     sip_rule_response = create_sip_rule(rule_name, new_phone_number, sma_ID, region)
     create_SMA_response = {"smaID": sma_ID, "phoneNumber": new_phone_number}
     return {"PhysicalResourceId": physical_id, "Data": create_SMA_response}
