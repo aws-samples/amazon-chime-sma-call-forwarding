@@ -1,15 +1,16 @@
-import * as cdk from "@aws-cdk/core";
-import dynamodb = require("@aws-cdk/aws-dynamodb");
-import iam = require("@aws-cdk/aws-iam");
-import lambda = require("@aws-cdk/aws-lambda");
-import custom = require("@aws-cdk/custom-resources");
-import { CustomResource, Duration } from "@aws-cdk/core";
-import apigateway = require("@aws-cdk/aws-apigateway");
-import s3 = require("@aws-cdk/aws-s3");
-import s3deploy = require("@aws-cdk/aws-s3-deployment");
+import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
+import dynamodb = require("aws-cdk-lib/aws-dynamodb");
+import iam = require("aws-cdk-lib/aws-iam");
+import lambda = require("aws-cdk-lib/aws-lambda");
+import custom = require("aws-cdk-lib/custom-resources");
+import { CustomResource, Duration } from "aws-cdk-lib/core";
+import apigateway = require("aws-cdk-lib/aws-apigateway");
+import s3 = require("aws-cdk-lib/aws-s3");
+import s3deploy = require("aws-cdk-lib/aws-s3-deployment");
 
 export class CallForwardingWithSMA extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const outgoingWav = new s3.Bucket(this, "outgoingWav", {
