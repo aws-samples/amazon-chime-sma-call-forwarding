@@ -37,6 +37,7 @@ export class AmazonChimeSMACallForwarding extends Stack {
       apiUrl: infrastructure.apiUrl,
       userPool: cognito.userPool,
       userPoolClient: cognito.userPoolClient,
+      identityPool: cognito.identityPool,
     });
 
     new CfnOutput(this, 'API_URL', { value: infrastructure.apiUrl });

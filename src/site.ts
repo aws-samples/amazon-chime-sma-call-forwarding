@@ -7,7 +7,11 @@ import {
   CachePolicy,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
-import { IUserPool, IUserPoolClient } from 'aws-cdk-lib/aws-cognito';
+import {
+  CfnIdentityPool,
+  IUserPool,
+  IUserPoolClient,
+} from 'aws-cdk-lib/aws-cognito';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Source, BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
@@ -17,6 +21,7 @@ interface SiteProps {
   apiUrl: string;
   userPool: IUserPool;
   userPoolClient: IUserPoolClient;
+  identityPool: CfnIdentityPool;
 }
 export class Site extends Construct {
   public readonly siteBucket: Bucket;
@@ -78,6 +83,7 @@ export class Site extends Construct {
       userPoolRegion: Stack.of(this).region,
       userPoolId: props.userPool.userPoolId,
       userPoolClientId: props.userPoolClient.userPoolClientId,
+      identityPoolId: props.identityPool.ref,
     };
 
     new BucketDeployment(this, 'DeployBucket', {
