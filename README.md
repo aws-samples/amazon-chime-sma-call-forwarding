@@ -9,9 +9,7 @@ This demo will build and configure several services within AWS so that you can f
 ## Requirements
 
 - node V18/npm [installed](https://www.npmjs.com/get-npm)
-- yarn [installed](https://classic.yarnpkg.com/en/docs/install)
-  - `npm install --global yarn`
-- AWS CLI [installed](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+- yarn [installed](https://yarnpkg.com/getting-started/install/)
 - AWS Credentials [configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) for the account/region that will be used for this demo (use us-east-1 or us-west-2 to align with SIP Media Application resources)
 - Ability/Permissions to create Chime SIP Media Applications and Phone Numbers (ensure your [Service Quota](https://console.aws.amazon.com/servicequotas/home/services/chime/quotas) in us-east-1 for Phone Numbers have not been reached)
 - Deployment must be done in us-east-1 or us-west-2 to align with SIP Media Application resources
@@ -119,7 +117,7 @@ Using the web app client, forward a phone number to a different number. This cre
 
 ## Cleanup
 
-To clean up this demo: `npx cdk destroy`. Additionally, Chime SIP Media Applications, rules, voice connectors, and phone numbers should be manually removed in the Chime Console.
+To clean up this demo: `yarn cdk destroy`. Additionally, Chime SIP Media Applications, rules, voice connectors, and phone numbers should be manually removed in the Chime Console.
 
 ### Learn more:
 
