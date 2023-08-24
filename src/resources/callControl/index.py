@@ -21,7 +21,7 @@ try:
     log_level = os.environ["LogLevel"]
     if log_level not in ["INFO", "DEBUG"]:
         log_level = "INFO"
-except:
+except BaseException:
     log_level = "INFO"
 logger.setLevel(log_level)
 
@@ -116,7 +116,7 @@ def assign_number_to_SMA(queried_number):
         chime_client.update_phone_number(PhoneNumberId=number, ProductType="SipMediaApplicationDialIn")
 
     create_sip_rule_response = chime_client.create_sip_rule(
-        Name=number,
+        Name='Rule_' + number[1:],
         TriggerType="ToPhoneNumber",
         TriggerValue=number,
         Disabled=False,
@@ -140,7 +140,7 @@ def assign_number_to_VC(queried_number, voice_connector_ID):
     if queried_number["PhoneNumber"]["Status"] == "Assigned":
         chime_client.update_sip_rule(
             SipRuleId=queried_number["PhoneNumber"]["Associations"][0]["Value"],
-            Name=queried_number["PhoneNumber"]["Associations"][0]["Name"],
+            Name='Rule_' + queried_number["PhoneNumber"]["Associations"][0]["Name"][:1],
             Disabled=True,
         )
         chime_client.delete_sip_rule(SipRuleId=queried_number["PhoneNumber"]["Associations"][0]["Value"])

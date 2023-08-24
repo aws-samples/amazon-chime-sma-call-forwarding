@@ -1,0 +1,2339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+{
+  "Outputs": {
+    "APIURL": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+    "InfrastructurecallForwardingAPIEndpointD60C60C2": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
+    "USERPOOLCLIENT": {
+      "Value": {
+        "Ref": "CognitoUserPoolClientEF2538C4",
+      },
+    },
+    "USERPOOLID": {
+      "Value": {
+        "Ref": "CognitoUserPool279BBD48",
+      },
+    },
+    "USERPOOLREGION": {
+      "Value": {
+        "Ref": "AWS::Region",
+      },
+    },
+    "site": {
+      "Value": {
+        "Fn::GetAtt": [
+          "SiteCloudfrontDistribution0794B6B8",
+          "DomainName",
+        ],
+      },
+    },
+    "siteBucket": {
+      "Value": {
+        "Ref": "SitewebsiteBucketBC20A569",
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "CognitoCognitoDefaultAuthenticatedRole162BCBED": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "ForAnyValue:StringLike": {
+                  "cognito-identity.amazonaws.com:amr": "authenticated",
+                },
+                "StringEquals": {
+                  "cognito-identity.amazonaws.com:aud": {
+                    "Ref": "CognitocognitoIdentityPool626065C7",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": "cognito-identity.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CognitoCognitoDefaultAuthenticatedRoleDefaultPolicyE55F5536": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "mobileanalytics:PutEvents",
+                "cognito-sync:*",
+                "cognito-identity:*",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CognitoCognitoDefaultAuthenticatedRoleDefaultPolicyE55F5536",
+        "Roles": [
+          {
+            "Ref": "CognitoCognitoDefaultAuthenticatedRole162BCBED",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CognitoCognitoDefaultUnauthenticatedRole7E1472DA": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "ForAnyValue:StringLike": {
+                  "cognito-identity.amazonaws.com:amr": "unauthenticated",
+                },
+                "StringEquals": {
+                  "cognito-identity.amazonaws.com:aud": {
+                    "Ref": "CognitocognitoIdentityPool626065C7",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": "cognito-identity.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CognitoCognitoDefaultUnauthenticatedRoleDefaultPolicyC106F210": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "mobileanalytics:PutEvents",
+                "cognito-sync:*",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CognitoCognitoDefaultUnauthenticatedRoleDefaultPolicyC106F210",
+        "Roles": [
+          {
+            "Ref": "CognitoCognitoDefaultUnauthenticatedRole7E1472DA",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CognitoDefaultValid0F579DDB": {
+      "Properties": {
+        "IdentityPoolId": {
+          "Ref": "CognitocognitoIdentityPool626065C7",
+        },
+        "Roles": {
+          "authenticated": {
+            "Fn::GetAtt": [
+              "CognitoCognitoDefaultAuthenticatedRole162BCBED",
+              "Arn",
+            ],
+          },
+          "unauthenticated": {
+            "Fn::GetAtt": [
+              "CognitoCognitoDefaultUnauthenticatedRole7E1472DA",
+              "Arn",
+            ],
+          },
+        },
+      },
+      "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+    },
+    "CognitoUserPool279BBD48": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AccountRecoverySetting": {
+          "RecoveryMechanisms": [
+            {
+              "Name": "verified_email",
+              "Priority": 1,
+            },
+          ],
+        },
+        "AdminCreateUserConfig": {
+          "AllowAdminCreateUserOnly": false,
+          "InviteMessageTemplate": {
+            "EmailMessage": "Your Call Forwarding web app username is {username} and temporary password is {####}",
+            "EmailSubject": "Your Call Forwarding web app temporary password",
+          },
+        },
+        "AutoVerifiedAttributes": [
+          "email",
+        ],
+        "EmailVerificationMessage": "The verification code to your new Call Forwarding web app account is {####}",
+        "EmailVerificationSubject": "Verify your new Call Forwarding web app account",
+        "EnabledMfas": [
+          "SMS_MFA",
+          "SOFTWARE_TOKEN_MFA",
+        ],
+        "LambdaConfig": {
+          "PreSignUp": {
+            "Fn::GetAtt": [
+              "CognitodomainValidatorC88C5FF9",
+              "Arn",
+            ],
+          },
+        },
+        "MfaConfiguration": "OPTIONAL",
+        "Schema": [
+          {
+            "Mutable": true,
+            "Name": "email",
+            "Required": true,
+          },
+        ],
+        "SmsConfiguration": {
+          "ExternalId": "testCognitoUserPoolA55211EF",
+          "SnsCallerArn": {
+            "Fn::GetAtt": [
+              "CognitoUserPoolsmsRole738960F0",
+              "Arn",
+            ],
+          },
+        },
+        "SmsVerificationMessage": "The verification code to your new account is {####}",
+        "UsernameAttributes": [
+          "email",
+        ],
+        "VerificationMessageTemplate": {
+          "DefaultEmailOption": "CONFIRM_WITH_CODE",
+          "EmailMessage": "The verification code to your new Call Forwarding web app account is {####}",
+          "EmailSubject": "Verify your new Call Forwarding web app account",
+          "SmsMessage": "The verification code to your new account is {####}",
+        },
+      },
+      "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CognitoUserPoolClientEF2538C4": {
+      "Properties": {
+        "AllowedOAuthFlows": [
+          "implicit",
+          "code",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": [
+          "https://example.com",
+        ],
+        "ExplicitAuthFlows": [
+          "ALLOW_CUSTOM_AUTH",
+          "ALLOW_USER_SRP_AUTH",
+          "ALLOW_REFRESH_TOKEN_AUTH",
+        ],
+        "GenerateSecret": false,
+        "RefreshTokenValidity": 60,
+        "SupportedIdentityProviders": [
+          "COGNITO",
+        ],
+        "TokenValidityUnits": {
+          "RefreshToken": "minutes",
+        },
+        "UserPoolId": {
+          "Ref": "CognitoUserPool279BBD48",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "CognitoUserPoolPreSignUpCognitoD07EA58F": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "CognitodomainValidatorC88C5FF9",
+            "Arn",
+          ],
+        },
+        "Principal": "cognito-idp.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "CognitoUserPool279BBD48",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "CognitoUserPoolsmsRole738960F0": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": "testCognitoUserPoolA55211EF",
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cognito-idp.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "sns:Publish",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "sns-publish",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CognitocognitoIdentityPool626065C7": {
+      "Properties": {
+        "AllowUnauthenticatedIdentities": false,
+        "CognitoIdentityProviders": [
+          {
+            "ClientId": {
+              "Ref": "CognitoUserPoolClientEF2538C4",
+            },
+            "ProviderName": {
+              "Fn::GetAtt": [
+                "CognitoUserPool279BBD48",
+                "ProviderName",
+              ],
+            },
+          },
+        ],
+        "IdentityPoolName": "cognitoIdentityPool",
+      },
+      "Type": "AWS::Cognito::IdentityPool",
+    },
+    "CognitodomainValidatorC88C5FF9": {
+      "DependsOn": [
+        "CognitodomainValidatorServiceRole1B8A3BD4",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "39a95a21ff1981283a30ebc303dbee721493ff20f66c6bcbacc43b84f58f2a0d.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CognitodomainValidatorServiceRole1B8A3BD4",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 60,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CognitodomainValidatorServiceRole1B8A3BD4": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+      "DependsOn": [
+        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_CA_BUNDLE": "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",
+          },
+        },
+        "Handler": "index.handler",
+        "Layers": [
+          {
+            "Ref": "S3ResorucesWavDeployAwsCliLayerA01B1C8E",
+          },
+        ],
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "S3ResorucesoutgoingWav1A1A4631",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "S3ResorucesoutgoingWav1A1A4631",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject",
+                "s3:PutObjectLegalHold",
+                "s3:PutObjectRetention",
+                "s3:PutObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "SitewebsiteBucketBC20A569",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "SitewebsiteBucketBC20A569",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "cloudfront:GetInvalidation",
+                "cloudfront:CreateInvalidation",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+        "Roles": [
+          {
+            "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CustomPSTNResourcesCustomResourceProviderHandlerD046A72D": {
+      "DependsOn": [
+        "CustomPSTNResourcesCustomResourceProviderRole536C0E76",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "b248adbb8cd1090a70ba3fd920dfa5f43f79e72e345d7ef230387e2a2243bd4c.zip",
+        },
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomPSTNResourcesCustomResourceProviderRole536C0E76",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomPSTNResourcesCustomResourceProviderRole536C0E76": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "chime:CreatePhoneNumberOrder",
+                    "chime:CreateSipMediaApplication",
+                    "chime:CreateSipRule",
+                    "chime:CreateVoiceConnector",
+                    "chime:CreateVoiceProfileDomain",
+                    "chime:DeletePhoneNumber",
+                    "chime:DeleteSipMediaApplication",
+                    "chime:DeleteSipRule",
+                    "chime:DeleteVoiceConnector",
+                    "chime:DeleteVoiceProfileDomain",
+                    "chime:GetPhoneNumber",
+                    "chime:GetPhoneNumberOrder",
+                    "chime:GetSipRule",
+                    "chime:ListPhoneNumbers",
+                    "chime:PutSipMediaApplicationLoggingConfiguration",
+                    "chime:PutVoiceConnectorLoggingConfiguration",
+                    "chime:PutVoiceConnectorOrigination",
+                    "chime:PutVoiceConnectorStreamingConfiguration",
+                    "chime:PutVoiceConnectorTermination",
+                    "chime:*MediaInsightsPipelineConfiguration",
+                    "chime:SearchAvailablePhoneNumbers",
+                    "chime:UpdateSipRule",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": [
+                    "logs:DescribeLogGroups",
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:ListLogDeliveries",
+                    "logs:CreateLogDelivery",
+                    "logs:GetLogDelivery",
+                    "logs:DeleteLogDelivery",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": "iam:CreateServiceLinkedRole",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": [
+                    "lambda:GetPolicy",
+                    "lambda:AddPermission",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+                {
+                  "Action": "ssm:*Parameter*",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:ssm:",
+                        {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":parameter/chime/*",
+                      ],
+                    ],
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "Inline",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+      "DependsOn": [
+        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "a657308e723bb9460b800cb3b47dadb74e28243edfe246bf7755c45ec312eb97.zip",
+        },
+        "Description": {
+          "Fn::Join": [
+            "",
+            [
+              "Lambda function for auto-deleting objects in ",
+              {
+                "Ref": "S3ResorucesoutgoingWav1A1A4631",
+              },
+              " S3 bucket.",
+            ],
+          ],
+        },
+        "Handler": "index.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "DatabasecalledNumber5E4AB803": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "dialed_number",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "dialed_number",
+            "KeyType": "HASH",
+          },
+        ],
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "Infrastructureauth4BEB723B": {
+      "Properties": {
+        "IdentitySource": "method.request.header.Authorization",
+        "Name": "testInfrastructureauthE9907576",
+        "ProviderARNs": [
+          {
+            "Fn::GetAtt": [
+              "CognitoUserPool279BBD48",
+              "Arn",
+            ],
+          },
+        ],
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+        "Type": "COGNITO_USER_POOLS",
+      },
+      "Type": "AWS::ApiGateway::Authorizer",
+    },
+    "InfrastructurecallControlLambdaD681613E": {
+      "DependsOn": [
+        "InfrastructureinfrastructureRoleDefaultPolicy0F2BD00C",
+        "InfrastructureinfrastructureRole80511D48",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "72244cfabb76cadb83956f083f879ceca4650626b59937b42968ff4cb4522c9d.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "CallForwardingTableName": {
+              "Ref": "DatabasecalledNumber5E4AB803",
+            },
+            "SMA_ID": {
+              "Fn::GetAtt": [
+                "PSTNAudiosipMediaAppsipMediaAppRequestpstnCustomResourceB0C1B5E6",
+                "sipMediaAppId",
+              ],
+            },
+          },
+        },
+        "Handler": "index.lambda_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "InfrastructureinfrastructureRole80511D48",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+        "Timeout": 10,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "InfrastructurecallForwardingAPIAccount9442865F": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "InfrastructurecallForwardingAPIE63A0FDC",
+      ],
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "InfrastructurecallForwardingAPICloudWatchRoleB79C6A37",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "InfrastructurecallForwardingAPICloudWatchRoleB79C6A37": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "InfrastructurecallForwardingAPIDeploymentFC4639B50fbc2a616be36e537869fc53f1f8e755": {
+      "DependsOn": [
+        "InfrastructurecallForwardingAPIlistVoiceConnectorsOPTIONSE284C971",
+        "InfrastructurecallForwardingAPIlistVoiceConnectorsPOST9C60F646",
+        "InfrastructurecallForwardingAPIlistVoiceConnectorsC99D306B",
+        "InfrastructurecallForwardingAPIOPTIONSB5688408",
+        "InfrastructurecallForwardingAPIqueryNumberOPTIONS854476D1",
+        "InfrastructurecallForwardingAPIqueryNumberPOSTA94D3566",
+        "InfrastructurecallForwardingAPIqueryNumberFCA0195E",
+        "InfrastructurecallForwardingAPIupdateNumberOPTIONSEFBEE655",
+        "InfrastructurecallForwardingAPIupdateNumberPOST0A054980",
+        "InfrastructurecallForwardingAPIupdateNumberE4ACBAA7",
+      ],
+      "Properties": {
+        "Description": "Automatically created by the RestApi construct",
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C": {
+      "DependsOn": [
+        "InfrastructurecallForwardingAPIAccount9442865F",
+      ],
+      "Properties": {
+        "DeploymentId": {
+          "Ref": "InfrastructurecallForwardingAPIDeploymentFC4639B50fbc2a616be36e537869fc53f1f8e755",
+        },
+        "MethodSettings": [
+          {
+            "DataTraceEnabled": true,
+            "HttpMethod": "*",
+            "LoggingLevel": "INFO",
+            "ResourcePath": "/*",
+          },
+        ],
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+        "StageName": "prod",
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "InfrastructurecallForwardingAPIE63A0FDC": {
+      "Properties": {
+        "EndpointConfiguration": {
+          "Types": [
+            "REGIONAL",
+          ],
+        },
+        "Name": "callForwardingAPI",
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "InfrastructurecallForwardingAPIOPTIONSB5688408": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "InfrastructurecallForwardingAPIE63A0FDC",
+            "RootResourceId",
+          ],
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIlistVoiceConnectorsC99D306B": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "InfrastructurecallForwardingAPIE63A0FDC",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "listVoiceConnectors",
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "InfrastructurecallForwardingAPIlistVoiceConnectorsOPTIONSE284C971": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIlistVoiceConnectorsC99D306B",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIlistVoiceConnectorsPOST9C60F646": {
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "Infrastructureauth4BEB723B",
+        },
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "InfrastructurecallControlLambdaD681613E",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIlistVoiceConnectorsC99D306B",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIlistVoiceConnectorsPOSTApiPermissionTesttestInfrastructurecallForwardingAPIB0AF2771POSTlistVoiceConnectors6B0F28E1": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/test-invoke-stage/POST/listVoiceConnectors",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructurecallForwardingAPIlistVoiceConnectorsPOSTApiPermissiontestInfrastructurecallForwardingAPIB0AF2771POSTlistVoiceConnectorsA4103974": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/",
+              {
+                "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+              },
+              "/POST/listVoiceConnectors",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructurecallForwardingAPIqueryNumberFCA0195E": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "InfrastructurecallForwardingAPIE63A0FDC",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "queryNumber",
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "InfrastructurecallForwardingAPIqueryNumberOPTIONS854476D1": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIqueryNumberFCA0195E",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIqueryNumberPOSTA94D3566": {
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "Infrastructureauth4BEB723B",
+        },
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "InfrastructurecallControlLambdaD681613E",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIqueryNumberFCA0195E",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIqueryNumberPOSTApiPermissionTesttestInfrastructurecallForwardingAPIB0AF2771POSTqueryNumberDF6CBA0E": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/test-invoke-stage/POST/queryNumber",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructurecallForwardingAPIqueryNumberPOSTApiPermissiontestInfrastructurecallForwardingAPIB0AF2771POSTqueryNumberBDDE1BB8": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/",
+              {
+                "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+              },
+              "/POST/queryNumber",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructurecallForwardingAPIupdateNumberE4ACBAA7": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "InfrastructurecallForwardingAPIE63A0FDC",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "updateNumber",
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "InfrastructurecallForwardingAPIupdateNumberOPTIONSEFBEE655": {
+      "Properties": {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Credentials": "'true'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+              },
+              "StatusCode": "204",
+            },
+          ],
+          "RequestTemplates": {
+            "application/json": "{ statusCode: 200 }",
+          },
+          "Type": "MOCK",
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
+            "StatusCode": "204",
+          },
+        ],
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIupdateNumberE4ACBAA7",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIupdateNumberPOST0A054980": {
+      "Properties": {
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "Infrastructureauth4BEB723B",
+        },
+        "HttpMethod": "POST",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "InfrastructurecallControlLambdaD681613E",
+                    "Arn",
+                  ],
+                },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+        "ResourceId": {
+          "Ref": "InfrastructurecallForwardingAPIupdateNumberE4ACBAA7",
+        },
+        "RestApiId": {
+          "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
+    },
+    "InfrastructurecallForwardingAPIupdateNumberPOSTApiPermissionTesttestInfrastructurecallForwardingAPIB0AF2771POSTupdateNumberDEC713CD": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/test-invoke-stage/POST/updateNumber",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructurecallForwardingAPIupdateNumberPOSTApiPermissiontestInfrastructurecallForwardingAPIB0AF2771POSTupdateNumber94E69F3A": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "InfrastructurecallControlLambdaD681613E",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+              },
+              "/",
+              {
+                "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+              },
+              "/POST/updateNumber",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "InfrastructureinfrastructureRole80511D48": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "chime:*",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "chimePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "InfrastructureinfrastructureRoleDefaultPolicy0F2BD00C": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "DatabasecalledNumber5E4AB803",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "InfrastructureinfrastructureRoleDefaultPolicy0F2BD00C",
+        "Roles": [
+          {
+            "Ref": "InfrastructureinfrastructureRole80511D48",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "PSTNAudiophoneNumberChimePhoneNumberpstnCustomResourceEF8E7A4D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomPSTNResourcesCustomResourceProviderHandlerD046A72D",
+            "Arn",
+          ],
+        },
+        "properties": {
+          "phoneCountry": "US",
+          "phoneNumberType": "Local",
+          "phoneProductType": "SipMediaApplicationDialIn",
+          "phoneState": "IL",
+        },
+        "resourceType": "PhoneNumber",
+        "uid": "testPSTNAudiophoneNumber84ACAE9A",
+      },
+      "Type": "Custom::PSTNResources",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PSTNAudiosipMediaAppsipMediaAppRequestpstnCustomResourceB0C1B5E6": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomPSTNResourcesCustomResourceProviderHandlerD046A72D",
+            "Arn",
+          ],
+        },
+        "properties": {
+          "endpoint": {
+            "Fn::GetAtt": [
+              "PSTNAudiosmaHandler5098719C",
+              "Arn",
+            ],
+          },
+          "name": "testPSTNAudiosipMediaAppA11E0D02",
+          "region": {
+            "Ref": "AWS::Region",
+          },
+        },
+        "resourceType": "SMA",
+        "uid": "testPSTNAudiosipMediaAppA11E0D02",
+      },
+      "Type": "Custom::PSTNResources",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "PSTNAudiosmaHandler5098719C": {
+      "DependsOn": [
+        "PSTNAudiosmaHandlerRoleDefaultPolicyD83C2F6B",
+        "PSTNAudiosmaHandlerRoleCCE86127",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "1c763e9d0aeefcad5ede6c52c1e6f6309616a514c892a4b4b0e87d62b45623c7.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "CallForwardingTableName": {
+              "Ref": "DatabasecalledNumber5E4AB803",
+            },
+            "LoopGreetingWhileRinging": "True",
+            "WavBucketName": {
+              "Ref": "S3ResorucesoutgoingWav1A1A4631",
+            },
+          },
+        },
+        "Handler": "index.lambda_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "PSTNAudiosmaHandlerRoleCCE86127",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+        "Timeout": 6,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "PSTNAudiosmaHandlerRoleCCE86127": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "chime:*",
+                  "Effect": "Allow",
+                  "Resource": "*",
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "chimePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "PSTNAudiosmaHandlerRoleDefaultPolicyD83C2F6B": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "DatabasecalledNumber5E4AB803",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "PSTNAudiosmaHandlerRoleDefaultPolicyD83C2F6B",
+        "Roles": [
+          {
+            "Ref": "PSTNAudiosmaHandlerRoleCCE86127",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "S3ResorucesWavDeployAwsCliLayerA01B1C8E": {
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+        },
+        "Description": "/opt/awscli/aws",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "S3ResorucesWavDeployCustomResourceA5D0599D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "DestinationBucketName": {
+          "Ref": "S3ResorucesoutgoingWav1A1A4631",
+        },
+        "Prune": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+            "Arn",
+          ],
+        },
+        "SourceBucketNames": [
+          {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+        ],
+        "SourceObjectKeys": [
+          "319529fca3b2bdf674c502463a5bb56509245a90a3be89babeb7995793d71570.zip",
+        ],
+        "SystemMetadata": {
+          "content-type": "audio/wav",
+        },
+      },
+      "Type": "Custom::CDKBucketDeployment",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "S3ResorucesoutgoingWav1A1A4631": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+          {
+            "Key": "aws-cdk:cr-owned:0eb1f3a3",
+            "Value": "true",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "S3ResorucesoutgoingWavAutoDeleteObjectsCustomResourceB0ACA61E": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "S3ResorucesoutgoingWavPolicy3A13FBCB",
+      ],
+      "Properties": {
+        "BucketName": {
+          "Ref": "S3ResorucesoutgoingWav1A1A4631",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "S3ResorucesoutgoingWavPolicy3A13FBCB": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3ResorucesoutgoingWav1A1A4631",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::GetAtt": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "S3ResorucesoutgoingWav1A1A4631",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "S3ResorucesoutgoingWav1A1A4631",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "voiceconnector.chime.amazonaws.com",
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "S3ResorucesoutgoingWav1A1A4631",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "S3ResorucesoutgoingWav1A1A4631",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+              "Sid": "SIPMediaApplicationRead",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "SiteCloudfrontDistribution0794B6B8": {
+      "Properties": {
+        "DistributionConfig": {
+          "DefaultCacheBehavior": {
+            "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+            "Compress": true,
+            "TargetOriginId": "testSiteCloudfrontDistributionOrigin14F75D719",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Logging": {
+            "Bucket": {
+              "Fn::GetAtt": [
+                "SiteCloudfrontDistributionLoggingBucket0054AC66",
+                "RegionalDomainName",
+              ],
+            },
+          },
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "SitewebsiteBucketBC20A569",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "testSiteCloudfrontDistributionOrigin14F75D719",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "SiteCloudfrontDistributionOrigin1S3Origin4F2AB6D1",
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "SiteCloudfrontDistributionLoggingBucket0054AC66": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256",
+              },
+            },
+          ],
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "ObjectWriter",
+            },
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SiteCloudfrontDistributionOrigin1S3Origin4F2AB6D1": {
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": "Identity for testSiteCloudfrontDistributionOrigin14F75D719",
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "SiteDeployBucketAwsCliLayerB1A3335C": {
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "e2277687077a2abf9ae1af1cc9565e6715e2ebb62f79ec53aa75a1af9298f642.zip",
+        },
+        "Description": "/opt/awscli/aws",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "SiteDeployBucketCustomResource08EC962A": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "DestinationBucketName": {
+          "Ref": "SitewebsiteBucketBC20A569",
+        },
+        "DistributionId": {
+          "Ref": "SiteCloudfrontDistribution0794B6B8",
+        },
+        "DistributionPaths": [
+          "/*",
+        ],
+        "Prune": true,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+            "Arn",
+          ],
+        },
+        "SourceBucketNames": [
+          {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+        ],
+        "SourceMarkers": [
+          {},
+          {
+            "<<marker:0xbaba:0>>": {
+              "Ref": "InfrastructurecallForwardingAPIE63A0FDC",
+            },
+            "<<marker:0xbaba:1>>": {
+              "Ref": "AWS::Region",
+            },
+            "<<marker:0xbaba:2>>": {
+              "Ref": "AWS::URLSuffix",
+            },
+            "<<marker:0xbaba:3>>": {
+              "Ref": "InfrastructurecallForwardingAPIDeploymentStageprod354E8D8C",
+            },
+            "<<marker:0xbaba:4>>": {
+              "Ref": "AWS::Region",
+            },
+            "<<marker:0xbaba:5>>": {
+              "Ref": "CognitoUserPool279BBD48",
+            },
+            "<<marker:0xbaba:6>>": {
+              "Ref": "CognitoUserPoolClientEF2538C4",
+            },
+            "<<marker:0xbaba:7>>": {
+              "Ref": "CognitocognitoIdentityPool626065C7",
+            },
+          },
+        ],
+        "SourceObjectKeys": [
+          "55a4f81021266eca0bb325f09c3c0e389f8c6aa14854fe077ce604d14fb77f0c.zip",
+          "7e2723da3d38f7cfb88b2c953d1b5da26dfd4aa7361cdb0bfcdf6041e0a71cad.zip",
+        ],
+      },
+      "Type": "Custom::CDKBucketDeployment",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SitewebsiteBucketAutoDeleteObjectsCustomResourceB62EAF63": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "SitewebsiteBucketPolicyC20F0243",
+      ],
+      "Properties": {
+        "BucketName": {
+          "Ref": "SitewebsiteBucketBC20A569",
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::S3AutoDeleteObjects",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SitewebsiteBucketBC20A569": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "aws-cdk:auto-delete-objects",
+            "Value": "true",
+          },
+          {
+            "Key": "aws-cdk:cr-owned:7d2ce709",
+            "Value": "true",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SitewebsiteBucketPolicyC20F0243": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "SitewebsiteBucketBC20A569",
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::GetAtt": [
+                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                    "Arn",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "SitewebsiteBucketBC20A569",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "SitewebsiteBucketBC20A569",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "SiteCloudfrontDistributionOrigin1S3Origin4F2AB6D1",
+                    "S3CanonicalUserId",
+                  ],
+                },
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "SitewebsiteBucketBC20A569",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

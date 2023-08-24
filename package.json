@@ -1,13 +1,30 @@
 {
-  "name": "call-forwarding-blog",
-  "version": "0.1.0",
-  "bin": {
-    "call-forwarding-blog": "bin/call-forwarding-blog.js"
-  },
+  "name": "amazon-chime-sma-call-forwarding",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "cdk": "cdk"
+    "build": "npx projen build",
+    "bundle": "npx projen bundle",
+    "clobber": "npx projen clobber",
+    "compile": "npx projen compile",
+    "configLocal": "npx projen configLocal",
+    "default": "npx projen default",
+    "deploy": "npx projen deploy",
+    "destroy": "npx projen destroy",
+    "diff": "npx projen diff",
+    "eject": "npx projen eject",
+    "eslint": "npx projen eslint",
+    "getBucket": "npx projen getBucket",
+    "launch": "npx projen launch",
+    "package": "npx projen package",
+    "post-compile": "npx projen post-compile",
+    "post-upgrade": "npx projen post-upgrade",
+    "pre-compile": "npx projen pre-compile",
+    "synth": "npx projen synth",
+    "synth:silent": "npx projen synth:silent",
+    "test": "npx projen test",
+    "test:watch": "npx projen test:watch",
+    "upgrade": "npx projen upgrade",
+    "watch": "npx projen watch",
+    "projen": "npx projen"
   },
   "devDependencies": {
     "@types/node": "16.11.0",
