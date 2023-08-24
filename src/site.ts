@@ -68,10 +68,7 @@ export class Site extends Construct {
               'cd site && yarn install --frozen-lockfile && yarn build',
               execOptions,
             );
-            fsExtra.copySync('./site/dist', outputDir, {
-              ...execOptions,
-              recursive: true,
-            });
+            fsExtra.copySync('./site/dist', outputDir);
             return true;
           },
         },

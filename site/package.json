@@ -8,21 +8,13 @@
     "build": "webpack --config webpack.config.js --mode production"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.8.0",
-    "@cloudscape-design/components": "^3.0.65",
-    "@cloudscape-design/global-styles": "^1.0.1",
-    "amazon-chime-sdk-component-library-react": "^3.7.0",
-    "amazon-chime-sdk-js": "^3.15.0",
-    "aws-amplify": "^4.3.15",
-    "axios": "^0.26.0",
-    "protobufjs": "6.11.4",
+    "@aws-amplify/ui-react": "^5.2.0",
+    "aws-amplify": "^5.3.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-phone-number-input": "^3.2.16",
     "react-select": "^5.7.0",
-    "regenerator-runtime": "^0.13.9",
-    "styled-components": "^5.3.3",
-    "styled-system": "^5.1.5"
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
